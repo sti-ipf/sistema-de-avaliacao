@@ -1,0 +1,109 @@
+<div id="title_bar"> 
+  <h2 id="page_title">Respostas para a dimensão <%= @dimension.number %></h2><div id="subtitle"><%=@dimension.name%></div>
+  <div class="action_items">
+    <%= render :partial => "salutation" %>
+  </div> 
+</div> 
+<div class="with_sidebar" id="content"> 
+  <div id="main_content_wrapper"> 
+    <div id="main_content"> 
+      <div class="panel dashboard_section"> 
+      <h3>Responda cada uma das questões abaixo</h3>
+      <div class="panel_contents">
+        <% form_tag validar_revisao_path, :id => "answers" do  %>
+
+        <%= hidden_field_tag "hdfGabarito" , @json_tables %>
+        <table>
+          <% current_indicator = -1%>
+          <% index = 0 %>
+          <% @questions.each do |question| %>
+            <% if question.question.indicator.number != current_indicator %>
+              <% current_indicator = question.question.indicator.number%>
+              <tr>
+                <td class="indicador" colspan="9">Indicador <%= "#{@dimension.number}.#{question.question.indicator.number} - #{question.question.indicator.name}" %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td rowspan="2"><%= "#{@dimension.number}.#{question.question.indicator.number}.#{question.question.number}" %></td>
+              <td colspan="8"><%= "#{question.text}" %></td>
+            </tr>
+            <tr>
+              <td colspan="8">
+                <div Style="width: 700px;" id=divTable_<%= index %>>
+                </div>
+              </td>
+            </tr>
+          <% index += 1 %>
+          <% end %>
+          <tr>
+            <td>Práticas consolidadas</td>
+            <td colspan="8">
+              <strong><%= !@practice.nil? ? !@practice.consolidated.nil? ? simple_format(@practice.consolidated) : "0" : "0"%></strong>
+            </td>
+          </tr>
+          <tr>
+            <td>Práticas que precisam avançar</td>
+            <td colspan="8">
+              <strong><%= !@practice.nil? ? !@practice.to_be_improved.nil? ? simple_format(@practice.to_be_improved) : "0" : "0"%></strong>
+            </td>
+          </tr>
+        </table>
+            <%= hidden_field_tag :school, @school.id %>
+            <%= hidden_field_tag :service_level, @service_level.id %>
+            <%= hidden_field_tag :segment, @segment.id %>
+            <%= hidden_field_tag :name, @name %>
+            <%= hidden_field_tag :dimension, @dimension.number %>
+            <%= submit_tag 'modificar' %>
+            <%= submit_tag 'salvar' %>
+        <% end %>
+      </div> 
+    </div> 
+  </div> 
+  </div> 
+  <div id="sidebar">
+    <%= render :partial => "flow/steps", :locals => {:current_step => @dimension.number + 3} %>
+  </div>
+</div> 
+<div id="footer"> 
+</div> 
+
+<script type="text/javascript" charset="utf-8"> 
+  $(document).ready(function() {
+    montaTabela($("#hdfGabarito").val());      
+  });
+
+  function montaTabela(json){
+    var $json = jQuery.parseJSON(json);
+    $json = $json.json;
+    var tabela;
+    var linha;
+    var coluna;
+
+    var _apresentacao;
+    for(var i=0; i< $json.length; i++){ //tabelas
+      _apresentacao = "";
+      linha = $json[i].tabelas;
+      _apresentacao = "<table>";
+      // Monta o Header
+      _apresentacao += "<tr><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td><td><b>4</b></td><td><b>5</b></td><td><b>ø</b></b></td></tr>";
+
+      for(var j=0; j< linha.length; j++){ // linhas
+        var coluna = linha[j].linhas;
+        _apresentacao += "<tr>";
+        for(var k=0; k< coluna.length; k++){ // colunas
+          var celula = coluna[k].colunas;
+          _apresentacao += "<td>";
+          if(j == linha.length-1){ // Se for a ultima linha coloca o texto negrito <b>
+            _apresentacao += "<b>";
+          }
+          _apresentacao += celula;
+          _apresentacao += "</td>";
+        }
+        _apresentacao += "</tr>";
+      }
+      _apresentacao += "</table>";
+      // Renderiza a tabela montada na tela
+      $("#divTable_"+ i).html(_apresentacao);
+    } 
+  }
+</script>
