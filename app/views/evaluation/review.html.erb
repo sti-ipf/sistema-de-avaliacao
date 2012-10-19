@@ -8,7 +8,7 @@
   <div id="main_content_wrapper"> 
     <div id="main_content"> 
       <div class="panel dashboard_section"> 
-      <h3>Responda cada uma das questões abaixo</h3>
+      <h3>Revise as questões abaixo</h3>
       <div class="panel_contents">
         <% form_tag validar_revisao_path, :id => "answers" do  %>
 
@@ -24,8 +24,7 @@
               </tr>
             <% end %>
             <tr>
-              <td rowspan="2"><%= "#{@dimension.number}.#{question.question.indicator.number}.#{question.question.number}" %></td>
-              <td colspan="8"><%= "#{question.text}" %></td>
+              <td colspan="10"><%= "#{question.text}" %></td>
             </tr>
             <tr>
               <td colspan="8">
@@ -85,19 +84,39 @@
       linha = $json[i].tabelas;
       _apresentacao = "<table>";
       // Monta o Header
-      _apresentacao += "<tr><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td><td><b>4</b></td><td><b>5</b></td><td><b>ø</b></b></td></tr>";
+      _apresentacao += "<tr><td></td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td><td><b>4</b></td><td><b>5</b></td><td><b>ø</b></b></td><td></td></tr>";
 
       for(var j=0; j< linha.length; j++){ // linhas
         var coluna = linha[j].linhas;
         _apresentacao += "<tr>";
+        if((j+1) == linha.length){
+          _apresentacao += "<td><b>Total</b></td>" ;
+        }
+        else{
+          _apresentacao += "<td>" + "Gabarito " + (j+1) + "</td>" ;
+        }
+        
         for(var k=0; k< coluna.length; k++){ // colunas
           var celula = coluna[k].colunas;
           _apresentacao += "<td>";
+          
           if(j == linha.length-1){ // Se for a ultima linha coloca o texto negrito <b>
             _apresentacao += "<b>";
           }
           _apresentacao += celula;
           _apresentacao += "</td>";
+
+          if(k == coluna.length-1){
+            if(j == linha.length-2){ // Se for a penultima linha coloca quantidade de pessoas <b>
+              _apresentacao += "<td>Quantidade de pessoas</td>";
+            }  
+            else{
+              _apresentacao += "<td></td>";
+            }
+          }
+          
+          
+
         }
         _apresentacao += "</tr>";
       }
