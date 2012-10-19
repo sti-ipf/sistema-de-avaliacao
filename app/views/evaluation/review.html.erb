@@ -52,7 +52,7 @@
             <%= hidden_field_tag :segment, @segment.id %>
             <%= hidden_field_tag :name, @name %>
             <%= hidden_field_tag :dimension, @dimension.number %>
-            <%= submit_tag 'modificar' %>
+            <%= submit_tag 'modificar' , :id => "voltar" %>
             <%= submit_tag 'salvar' %>
         <% end %>
       </div> 
@@ -125,4 +125,10 @@
       $("#divTable_"+ i).html(_apresentacao);
     } 
   }
+
+  $("#voltar").click(function() { 
+    history.go(-1);
+    return false;
+  });
+
 </script>
