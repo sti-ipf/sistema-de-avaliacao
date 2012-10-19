@@ -106,10 +106,31 @@
             });
             $table.find(".total_"+classe).val(valor);
             CalculaTotal($table);
+
+            var totalLinha = 0;
+            $(this).parents(".gabarito:first").find(".txtQuestao").each(function(i, e){totalLinha = totalLinha + Number($(e).val());})
+            
+            //habilita a proxima linha se tiver algum valor informado na linha atual
+            if(totalLinha > 0){
+              var linha = $(this).parents(".gabarito:first").next();
+              
+              linha.find(".txtQuestao").unbind("keypress");
+              linha.find(".txtQuestao").attr("disabled", false);
+            }
+
           });
 
-          $(".txtQuestao").keypress(soNumeros);
-          
+          var tables = $(".table_question");
+
+          //desabilita todos os campos
+          tables.find(".txtQuestao").keypress(desabilitaDigitacao);
+          tables.find(".txtQuestao").attr("disabled", true);
+
+          //Habilita primeira linha
+          tables.find(".gabarito:first").find(".txtQuestao").unbind("keypress").keypress(soNumeros);
+          tables.find(".gabarito:first").find(".txtQuestao").attr("disabled", false);
+
+         
           $(".totalParcial, .totalPessoas").keypress(desabilitaDigitacao);
 
           desabilitaCampos(true);
@@ -128,7 +149,7 @@
       function soNumeros(e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
           return false;
-        }
+        } 
       }
 
       function desabilitaDigitacao(){
