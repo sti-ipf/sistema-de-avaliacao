@@ -26,7 +26,7 @@ class EvaluationController < ApplicationController
     if (!@password.nil?)
       if(!is_session_valid(@password.school.id, @password.segment.id))
         @schools = School.all.collect{ |school| [school.name, school.id] }
-        render "index", :alert => 'Ja existe uma avaliação sendo feita para este item.'
+        render "index", :alert => 'Já existe uma avaliação sendo preenchida por essa escola usando a senha informada.'
       else
         @segment = @password.segment
         @school = @password.school
