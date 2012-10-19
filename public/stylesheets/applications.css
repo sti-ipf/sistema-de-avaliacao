@@ -2,12 +2,12 @@
     height: 120px;
     width: 100%;
     position: relative;
-    background-image: url('../images/marca.png');
     background-repeat:no-repeat;
     background-position: left top;
     text-align: center;
     margin: 0 !important;
     padding: 0 !important;
+    background: #fff !important;
 }
 
 #header #site_title{
@@ -145,5 +145,37 @@ a#export{
 
 
 #consolidated_practices, #to_be_improved_practices{
-  width:100%;
+  width:95%;
+}
+
+p.notice{
+  padding: 15px;
+  background: none repeat scroll 0 0 #eee;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2), 0 1px 5px rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+#survey_label{
+  float: left;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+#survey_option a{
+  text-decoration: none;
+  padding: 5px;  
+}
+
+#survey_option a:hover{
+  text-decoration: underline;
+}
+
+#survey_option a#yes{
+  color: #228653;
+
+}
+
+#survey_option a#no{
+  color: #BF3A30;
+  padding: 5px;  
 }
