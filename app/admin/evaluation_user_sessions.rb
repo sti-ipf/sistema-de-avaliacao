@@ -7,7 +7,7 @@ ActiveAdmin.register EvaluationUserSession do
     column 'Segmento', :segment
     column 'Cookie', :session_cookie
     column '', :actions do |session| 
-      link_to 'Deletar', resource_path(:admin_evaluation_user_session) , :method => :delete, :confirm => 'Deseja deletar esta sessão?'
+      link_to 'Deletar', resource_path(session.id) , :method => :delete, :confirm => 'Deseja deletar esta sessão?'
     end
   end
 
