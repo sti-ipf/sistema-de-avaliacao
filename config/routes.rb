@@ -15,6 +15,8 @@ IpfOsascoAvaliacao2011::Application.routes.draw do
   match "lista_presenca", :to => 'evaluation#presence_list'
   match "salvar_lista_presenca", :to => 'evaluation#save_presence_list'
   match "gabarito", :to => 'evaluation#evaluation_template', :as => 'template'
+  match "update_session", :to => 'evaluation#update_session'
+  match "end_session", :to => 'evaluation#end_session'
 
   match "passwords/generate_all_letters", :to => 'passwords#generate_all_letters'
   match "passwords/generate_creche_conveniadas_letters", :to => 'passwords#generate_creche_conveniadas_letters'
@@ -30,9 +32,6 @@ IpfOsascoAvaliacao2011::Application.routes.draw do
   match "sistema/dimensoes/importar", :to => 'system#import_dimensions', :as => 'import_dimensions'
   match "sistema/segmentos/importar", :to => 'system#import_segments', :as => 'import_segments'
   match "sistema/indicadores/importar", :to => 'system#import_indicators', :as => 'import_indicators'
-  
-  
-  
 
   resources :evaluation do
     get :autocomplete_school_name, :on => :collection

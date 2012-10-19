@@ -14,8 +14,7 @@
         <p>Data fim da resposta: <%= @evaluation_status.finished_at.try(:strftime, "%d/%m/%Y %H:%M") %></p>
         <input type="submit" value="imprimir" onClick="window.print();">
         <%= link_to 'salvar em PDF', salvar_lista_presenca_path(:school => params["school"], :service_level => params["service_level"], :segment => params["segment"], :format => 'pdf'), :id => 'export' %>       
-        <input type="submit" value="sair" onClick="window.location = 'http://www.avaliaosasco.paulofreire.org/';">
-        
+        <input type="submit" value="sair" onClick="window.location = 'end_session';">
       </div> 
     </div> 
   </div> 
