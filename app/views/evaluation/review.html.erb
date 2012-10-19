@@ -20,7 +20,7 @@
             <% if question.question.indicator.number != current_indicator %>
               <% current_indicator = question.question.indicator.number%>
               <tr>
-                <td class="indicador" colspan="9">Indicador <%= "#{@dimension.number}.#{question.question.indicator.number} - #{question.question.indicator.name}" %></td>
+                <td class="indicador" colspan="9"><%= "Indicador - #{question.question.indicator.name}" %></td>
               </tr>
             <% end %>
             <tr>
