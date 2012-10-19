@@ -8,7 +8,7 @@
       <%- if question.question.indicator.number != current_indicator %>
         <%-current_indicator = question.question.indicator.number %>
         <tr>
-          <%= "<td class='indicador' colspan='9'> <div class='indicador'>Indicador  #{@dimension.number}.#{question.question.indicator.number} - #{question.question.indicator.name} </div></td>".html_safe %>
+          <%= "<td class='indicador' colspan='9'> <div class='indicador'>Indicador - #{question.question.indicator.name} </div></td>".html_safe %>
         </tr>
       <%-end %>
       <table class="table_question" id="table_<%= "#{question.id}" %>">

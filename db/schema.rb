@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218204356) do
+ActiveRecord::Schema.define(:version => 20121019143918) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(:version => 20120218204356) do
     t.datetime "started_at"
     t.datetime "finished_at"
     t.integer  "dimension_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "evaluation_user_sessions", :force => true do |t|
+    t.integer  "school_id"
+    t.integer  "segment_id"
+    t.string   "session_cookie"
+    t.datetime "last_request"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -244,6 +253,16 @@ ActiveRecord::Schema.define(:version => 20120218204356) do
 
   create_table "service_levels", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "surveys", :force => true do |t|
+    t.text     "observation"
+    t.integer  "service_level_id"
+    t.integer  "school_id"
+    t.integer  "segment_id"
+    t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,34 @@
+
+<% form_tag salvar_lista_presenca_path, :multipart => true, :method => 'POST' do  %>
+  <%= label_tag "Gostaria de deixar alguma crítica, elogio ou sugestão sobre o proceso de Avaliação de 2012?", nil, :id => 'survey_label' %>
+  <div id = "survey_option">
+    <%= link_to 'Sim', '#', :id => 'yes' %>
+    <%= link_to 'Não', '#', :id => 'no' %>
+  </div>
+  <%= text_area :survey, :observation, :cols => 200, :rows => 5, :style => 'display:none;' %>
+  <%= hidden_field_tag :school, @school.id %>
+  <%= hidden_field_tag :service_level, @service_level.id %>
+  <%= hidden_field_tag :segment, @segment.id %>
+  <%= hidden_field_tag :name, @name %>
+  <%= hidden_field_tag :last_presence_idx, 20 %>
+  <%= submit_tag 'Finalizar avaliação', :id => 'finish_evaluation', :style => 'display:none;' %>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+
+    $('#yes').click(function(){
+      $("#survey_option").hide(0);
+      $("#survey_observation").slideToggle(180)
+      $("#finish_evaluation").slideToggle(180)
+    })
+
+    $('#no').click(function(){
+      $("#survey_option").hide(0);
+      $("#finish_evaluation").slideToggle(180)
+    })
+
+    
+  
+  });
+</script>

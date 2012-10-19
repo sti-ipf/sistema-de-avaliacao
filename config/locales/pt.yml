@@ -50,6 +50,7 @@ pt:
       answer_log: "Log de resposta"
       evaluation_answer_stat: "Estatística"
       question: "Questão"
+      survey: "Pesquisa"
     attributes:
       admin_user:
         email: "Email"
@@ -108,6 +109,8 @@ pt:
         school: "Escola"
         dimension: "Dimensão"
         created_at: "Horário da ação"
+      survey:
+        observation: "Observação"
 
   helpers:
     select:

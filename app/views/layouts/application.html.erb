@@ -11,6 +11,17 @@
     <%= javascript_include_tag "application.js" %>
     <%= javascript_include_tag "jquery.infieldlabel.min.js", 'jquery.jgrowl_minimized.js', 'jquery.tablescroll.js', "jquery.colorbox.js" %>
     <%= csrf_meta_tag %>
+    <script>
+      function update_session(){
+        $.ajax({
+          url: 'update_session',
+          success:  function(data){
+          }
+        })
+      }
+
+      setInterval(update_session, 5000 * 60);
+    </script>
   </head> 
   <body> 
     <div id="wrapper"> 

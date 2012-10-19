@@ -1,6 +1,6 @@
 class EvaluationController < ApplicationController
   autocomplete :school, :name, :full => true
-  
+  before_filter :check_session, :only =>[:identify, :instructions, :answer_dimension, :review, :checkreview, :save, :presence_list, :save_presence_list]
   def evaluation_template
     @answers = Answer.find_by_sql("
       SELECT qt.dimension_number, qt.question_number, a.do_not_know, a.do_not_answer, 
@@ -13,6 +13,7 @@ class EvaluationController < ApplicationController
   end
 
   def index
+    clean_session
     @schools = School.all.collect{ |school| [school.name, school.id] }
   end
 
@@ -21,16 +22,22 @@ class EvaluationController < ApplicationController
       params[:school] = params[:school_id]
     end
     @password = Password.find_by_password_and_school_id(params[:password], params[:school])
-    if !@password.nil?    
-      @segment = @password.segment
-      @school = @password.school
-      @service_level = @password.service_level
-      generate_steps
-      render "confirm"
+
+    if (!@password.nil?)
+      if(!is_session_valid(@password.school.id, @password.segment.id))
+        @schools = School.all.collect{ |school| [school.name, school.id] }
+        render "index", :alert => 'Ja existe uma avaliação sendo feita para este item.'
+      else
+        @segment = @password.segment
+        @school = @password.school
+        @service_level = @password.service_level
+        generate_steps
+        render "confirm"
+        end
     else
       @schools = School.all.collect{ |school| [school.name, school.id] }
       render "index", :alert => 'Senha inválida para a escola selecionada.'
-    end      
+    end
   end
 
   def identify
@@ -39,6 +46,7 @@ class EvaluationController < ApplicationController
     if(params[:commit] == 'sim')
       render "identify"
     else
+      clean_session
       @schools = School.all.collect{ |school| [school.name, school.id] }
       render "index", :notice => 'Escola e segmento não confirmados, por favor digite uma nova senha.'
     end
@@ -48,6 +56,14 @@ class EvaluationController < ApplicationController
     load_params
     generate_steps
     render "instructions"
+  end
+
+  def update_session
+      if EvaluationUserSession.update(cookies[:school_id], cookies[:segment_id], cookies[:session])
+        render :json => 200
+      else
+        render :json => 400
+      end
   end
 
   def answerdimension
@@ -81,7 +97,7 @@ class EvaluationController < ApplicationController
     load_params
     do_not_know = params[:do_not_know]
     do_not_answer = params[:do_not_answer]
-    quantity_of_people = params[:quantity_of_people]
+    quantity_of_people = params[:quantity_of_people].nil? ? Hash.new : params[:quantity_of_people]
     one = params[:one]
     two = params[:two]
     three = params[:three]
@@ -163,7 +179,7 @@ class EvaluationController < ApplicationController
     if(params[:commit] == 'ir para próxima dimensão' || params[:commit] == 'ir para a lista de presença')
       redirect_to :action => "answerdimension", :school => @school.id, :segment => @segment.id, :service_level => @service_level.id, :name => @name
     else
-      redirect_to "http://www.avaliaosasco.paulofreire.org/"
+      end_session
     end
   end
 
@@ -178,7 +194,10 @@ class EvaluationController < ApplicationController
     load_params
     generate_steps
     @evaluation_status = EvaluationAnswerStat.find_by_service_level_id_and_segment_id_and_school_id(@service_level.id, @segment.id, @school.id)
-    
+    if !params[:survey][:observation].blank?
+      Survey.create(:observation => params[:survey][:observation], :service_level_id => params[:service_level], 
+        :school_id => params[:school], :segment_id => params[:segment], :author => params[:name])
+    end
     respond_to do |format|
       format.html {render "finish", :layout => 'certificate'}
       format.pdf do
@@ -190,8 +209,19 @@ class EvaluationController < ApplicationController
     end
   end
 
+  def end_session
+    clean_session
+    redirect_to "http://www.avaliaosasco.paulofreire.org/"
+  end
 
-private 
+private
+  def check_session
+    if(!has_session? params[:school], params[:segment])
+      @schools = School.all.collect{ |school| [school.name, school.id] }
+      render "index", :alert => 'Sua sessão expirou.'
+    end
+  end
+
   def update_dimension_status status
     @dimension_status = DimensionStatus.find_by_segment_id_and_school_id_and_dimension_id(@segment.id, @school.id, @dimension.id)
     if @dimension_status.nil?
@@ -270,5 +300,47 @@ private
   def last_dimension
     dimensions = Dimension.where("service_level_id = ?", @service_level.id).order("number")
     @dimension.number == dimensions.last.number
-  end  
+  end
+
+  def generate_cookies(school_id, segment_id)
+    cookies[:school_id] = { :value => school_id, :expires => Time.now + 1.day}
+    cookies[:segment_id] = { :value => segment_id, :expires => Time.now + 1.day}
+    cookies[:session] = { :value => UUIDTools::UUID.random_create.to_s, :expires => Time.now + 1.day}
+  end
+
+  def is_session_valid school_id, segment_id
+    session = EvaluationUserSession.where(:school_id => school_id, :segment_id => segment_id).first
+    if(session.nil?)
+      generate_cookies school_id, segment_id
+      session = EvaluationUserSession.new
+      session.school_id = school_id
+      session.segment_id = segment_id
+      session.session_cookie = cookies[:session]
+      session.last_request = Time.now
+      session.save
+      return true
+    elsif(session.session_cookie == cookies[:session])
+        return true
+    else
+        return false
+    end
+  end
+
+  def has_session? school_id, segment_id
+    return false if(cookies[:school_id] != school_id || cookies[:segment_id] != segment_id)
+    session = EvaluationUserSession.where(:school_id => cookies[:school_id], :segment_id => cookies[:segment_id], :session_cookie => cookies[:session]).first
+    !session.nil?
+  end
+
+  def clean_session
+    session = EvaluationUserSession.where(:school_id => cookies[:school_id], :segment_id => cookies[:segment_id], :session_cookie => cookies[:session]).first
+    session.destroy if !session.nil?
+    delete_cookies
+  end
+  
+  def delete_cookies
+    cookies.delete :school_id
+    cookies.delete :segment_id
+    cookies.delete :session
+  end
 end
