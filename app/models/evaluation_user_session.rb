@@ -1,4 +1,6 @@
 class EvaluationUserSession < ActiveRecord::Base
+  belongs_to :school
+  belongs_to :segment
 
   def self.update school_id, segment_id, session_cookie
     session = EvaluationUserSession.where(:school_id => school_id, :segment_id => segment_id, :session_cookie => session_cookie).first
@@ -9,7 +11,7 @@ class EvaluationUserSession < ActiveRecord::Base
   def self.erase_old_sessions
     sessions = EvaluationUserSession.all
     sessions.each do |session|
-      if(session.last_request - Time.now > 10.minutes)
+      if(Time.now - session.last_request > 10.minutes)
         session.destroy
       end
     end

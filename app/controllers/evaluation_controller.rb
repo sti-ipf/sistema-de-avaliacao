@@ -213,7 +213,7 @@ class EvaluationController < ApplicationController
 
 private
   def check_session
-    if(!has_session?)
+    if(!has_session? params[:school], params[:segment])
       @schools = School.all.collect{ |school| [school.name, school.id] }
       render "index", :alert => 'Sua sessão expirou.'
     end
@@ -323,7 +323,8 @@ private
     end
   end
 
-  def has_session?
+  def has_session? school_id, segment_id
+    return false if(cookies[:school_id] != school_id || cookies[:segment_id] != segment_id)
     session = EvaluationUserSession.where(:school_id => cookies[:school_id], :segment_id => cookies[:segment_id], :session_cookie => cookies[:session]).first
     !session.nil?
   end
