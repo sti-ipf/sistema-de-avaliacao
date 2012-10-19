@@ -1,6 +1,6 @@
 class EvaluationController < ApplicationController
   autocomplete :school, :name, :full => true
-  
+  before_filter :check_session, :only =>[:identify, :instructions, :answer_dimension, :review, :checkreview, :save, :presence_list, :save_presence_list]
   def evaluation_template
     @answers = Answer.find_by_sql("
       SELECT qt.dimension_number, qt.question_number, a.do_not_know, a.do_not_answer, 
@@ -24,7 +24,7 @@ class EvaluationController < ApplicationController
     @password = Password.find_by_password_and_school_id(params[:password], params[:school])
 
     if (!@password.nil?)
-      if(!isSessionValid(@password.school.id, @password.segment.id))
+      if(!is_session_valid(@password.school.id, @password.segment.id))
         @schools = School.all.collect{ |school| [school.name, school.id] }
         render "index", :alert => 'Ja existe uma avaliação sendo feita para este item.'
       else
@@ -46,6 +46,7 @@ class EvaluationController < ApplicationController
     if(params[:commit] == 'sim')
       render "identify"
     else
+      clean_session
       @schools = School.all.collect{ |school| [school.name, school.id] }
       render "index", :notice => 'Escola e segmento não confirmados, por favor digite uma nova senha.'
     end
@@ -210,7 +211,14 @@ class EvaluationController < ApplicationController
     redirect_to "http://www.avaliaosasco.paulofreire.org/"
   end
 
-private 
+private
+  def check_session
+    if(!has_session?)
+      @schools = School.all.collect{ |school| [school.name, school.id] }
+      render "index", :alert => 'Sua sessão expirou.'
+    end
+  end
+
   def update_dimension_status status
     @dimension_status = DimensionStatus.find_by_segment_id_and_school_id_and_dimension_id(@segment.id, @school.id, @dimension.id)
     if @dimension_status.nil?
@@ -297,7 +305,7 @@ private
     cookies[:session] = { :value => UUIDTools::UUID.random_create.to_s, :expires => Time.now + 1.day}
   end
 
-  def isSessionValid school_id, segment_id
+  def is_session_valid school_id, segment_id
     session = EvaluationUserSession.where(:school_id => school_id, :segment_id => segment_id).first
     if(session.nil?)
       generate_cookies school_id, segment_id
@@ -313,6 +321,11 @@ private
     else
         return false
     end
+  end
+
+  def has_session?
+    session = EvaluationUserSession.where(:school_id => cookies[:school_id], :segment_id => cookies[:segment_id], :session_cookie => cookies[:session]).first
+    !session.nil?
   end
 
   def clean_session
