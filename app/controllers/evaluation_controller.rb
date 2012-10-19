@@ -178,7 +178,10 @@ class EvaluationController < ApplicationController
     load_params
     generate_steps
     @evaluation_status = EvaluationAnswerStat.find_by_service_level_id_and_segment_id_and_school_id(@service_level.id, @segment.id, @school.id)
-    
+    if !params[:survey][:observation].blank?
+      Survey.create(:observation => params[:survey][:observation], :service_level_id => params[:service_level], 
+        :school_id => params[:school], :segment_id => params[:segment], :author => params[:name])
+    end
     respond_to do |format|
       format.html {render "finish", :layout => 'certificate'}
       format.pdf do
