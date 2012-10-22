@@ -1,7 +1,5 @@
 ActiveAdmin.register Question do
   menu :parent => "Avaliação", :priority => 7
-
-
   index do |q|
     column "Indicador - Número" do |question|
       "#{question.indicator.number}.#{question.number}"
@@ -10,6 +8,7 @@ ActiveAdmin.register Question do
       question.question_texts.first.text
     end
     default_actions
+    sidebar :help, :partial => "custom_help_partial"
   end
 
   action_item do

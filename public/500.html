@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <title>The page you were looking for doesn't exist (404)</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
+    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; 
+      background: url("/static-bg.jpg") repeat;}
     div.dialog {
       width: 25em;
       padding: 0 4em;
@@ -17,10 +18,8 @@
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
-    <p>We've been notified about this issue and we'll take a look at it shortly.</p>
-  </div>
+  <a href="/">
+    <img src="/500.png"></img>
+  </a>
 </body>
 </html>

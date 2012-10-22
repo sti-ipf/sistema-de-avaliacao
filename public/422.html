@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The change you wanted was rejected (422)</title>
+  <title>The page you were looking for doesn't exist (404)</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
+    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; 
+      background: url("/static-bg.jpg") repeat;}
     div.dialog {
       width: 25em;
       padding: 0 4em;
@@ -17,10 +18,8 @@
 </head>
 
 <body>
-  <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <h1>The change you wanted was rejected.</h1>
-    <p>Maybe you tried to change something you didn't have access to.</p>
-  </div>
+  <a href="/">
+    <img src="/404.png"></img>
+  </a>
 </body>
 </html>

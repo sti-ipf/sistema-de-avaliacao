@@ -59,11 +59,11 @@ class EvaluationController < ApplicationController
   end
 
   def update_session
-      if EvaluationUserSession.update(cookies[:school_id], cookies[:segment_id], cookies[:session])
-        render :json => 200
-      else
-        render :json => 400
-      end
+    if EvaluationUserSession.update(cookies[:school_id], cookies[:segment_id], cookies[:session])
+      render :json => 200
+    else
+      render :json => 400
+    end
   end
 
   def answerdimension

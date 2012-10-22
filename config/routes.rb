@@ -1,4 +1,5 @@
 IpfOsascoAvaliacao2011::Application.routes.draw do
+  # match "admin/questions", :to => 'questions#index'
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -36,5 +37,7 @@ IpfOsascoAvaliacao2011::Application.routes.draw do
   resources :evaluation do
     get :autocomplete_school_name, :on => :collection
   end
+
+
 end
 
