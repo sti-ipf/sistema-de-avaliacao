@@ -1,5 +1,9 @@
 IpfOsascoAvaliacao2011::Application.routes.draw do
   # match "admin/questions", :to => 'questions#index'
+
+  namespace :admin do
+    resources :questions
+  end
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config

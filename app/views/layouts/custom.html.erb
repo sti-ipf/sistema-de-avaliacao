@@ -22,12 +22,13 @@
         <div id="titlebar_left">
           <h2 id="page_title"><%= custom_title %></h2>
         </div>
-        <div id="titlebar_right"></div>
+        <div id="titlebar_right"> <%= custom_itens %> </div>
       </div>
 
       <div id="active_admin_content" class="without_sidebar">
         <div id="main_content_wrapper">
           <div id="main_content">
+            <%= flash_messages.html_safe %>
             <%= yield %>
           </div>
         </div>
