@@ -4,7 +4,7 @@ IpfOsascoAvaliacao2011::Application.routes.draw do
   match "admin/questions/new", :to => 'questions#new'
   match "admin/create_question", :to => 'questions#create', :as => 'create_question'
   match "admin/questions/:id/edit", :to => 'questions#edit'
-  match "admin/create_question", :to => 'questions#update', :as => 'update_question'
+  match "admin/update_question", :to => 'questions#update', :as => 'update_question'
   match "update_indicators/:service_level_id", :to => 'questions#update_indicators'
 
   

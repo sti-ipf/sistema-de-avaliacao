@@ -39,4 +39,23 @@ class QuestionsController < ApplicationController
     @segments = Segment.all(:conditions => "service_level_id = #{@question.service_level_id}").collect{|i| [i.name, i.id]}
   end
 
+  def update
+    question = Question.find(params[:question][:id])
+    question.service_level_id = params[:question][:service_level_id]
+    question.indicator_id = params[:question][:indicator_id]
+    question.number = params[:question][:number]
+    question.save
+    params[:question][:question_texts_attributes].each do |q|
+      q = q.last
+      question_text = QuestionText.find(q['id'])
+      question_text.text = q['text']
+      question_text.segment_id = q['segment_id']
+      question_text.save
+    end
+    flash[:notice] = 'Questão atualizada com sucesso'
+    redirect_to questions_path
+  end
+
 end
+
+ 
