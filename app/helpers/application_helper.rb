@@ -31,7 +31,7 @@ module ApplicationHelper
     if request.path.include?("questions")
       "
       <div class='action_items'>
-            <span class='action_item'>#{link_to "Nova questão", new_admin_question_path}</span>
+            <span class='action_item'>#{link_to "Nova questão", new_question_path}</span>
             <span class='action_item'>#{link_to "Importar", import_instrument_path}</span>
       </div>
       ".html_safe

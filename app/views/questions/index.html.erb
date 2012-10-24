@@ -23,7 +23,7 @@
                       <td><%= q.question.service_level.name %></td>
                       <td><%= q.segment.name %></td>
                       <td><%= q.text %></td>
-                      <td><%= link_to 'Alterar', edit_admin_question_path(:id => q.question.id) %></td>
+                      <td><%= link_to 'Alterar', edit_question_path(:id => q.question.id) %></td>
                     </tr>
                   <%- end %>
                 </tbody>

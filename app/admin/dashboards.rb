@@ -86,6 +86,10 @@ ActiveAdmin::Dashboards.build do
       li do
         link_to "Pré-gerar estatísticas das respostas", generate_answer_stats_path, :remote => true
       end
+
+      li do        
+        link_to "Visualizar as questões", questions_path, :id => "questions_path"        
+      end
       
     end
   end
