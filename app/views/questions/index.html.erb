@@ -1,0 +1,37 @@
+<div id="active_admin_content" class="with_sidebar">
+  <div id="main_content_wrapper">
+    <div id="main_content">
+      <div class="paginated_collection">
+        <div class="pagination_information"><b><%= @question_texts.count%></b> Questões</div>
+        <div class="paginated_collection_contents">
+          <div class="index_content">
+            <div class="index_as_table">
+              <table cellspacing="0" cellpadding="0" border="0" id="senha" class="index_table">
+                <thead>
+                  <tr>
+                    <th class="sortable">Indicador - Número</th>
+                    <th class="sortable">Nível de serviço</th>
+                    <th class="sortable">Segmento</th>
+                    <th class="sortable">Texto</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%- @question_texts.each do |q| %>
+                    <tr>
+                      <td><%= "#{q.question.indicator.number}.#{q.question.number}" %></td>
+                      <td><%= q.question.service_level.name %></td>
+                      <td><%= q.segment.name %></td>
+                      <td><%= q.text %></td>
+                      <td><%= link_to 'Alterar', edit_admin_question_path(:id => q.question.id) %></td>
+                    </tr>
+                  <%- end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,3 +19,26 @@ function convert_to_int(value){
 	else
 		return parseInt(value);
 }
+
+
+
+String.prototype.unescapeHtml = function () {
+    var temp = document.createElement("div");
+    temp.innerHTML = this;
+    var result = temp.childNodes[0].nodeValue;
+    temp.removeChild(temp.firstChild);
+    return result;
+}
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").slideToggle("show");
+}
+
+function add_fields(link, association, content) {
+  var numItems = $('.fields').length
+  var new_id = numItems
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).before(content.unescapeHtml().replace(regexp, new_id));  
+  return false;
+}

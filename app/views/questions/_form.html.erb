@@ -1,0 +1,14 @@
+<%= semantic_form_for [@question], :url => url_path do |f| %>
+  <%= render 'question_form', :f => f, :button => button %>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+      $.ajax({url: "/update_indicators/" + $("#question_service_level_id").val()});
+      $("#question_service_level_id").change(function() {
+          var value = $(this).val();
+          var address = "/update_indicators/" + value
+          $.ajax({url: address});
+      });
+  });
+</script>

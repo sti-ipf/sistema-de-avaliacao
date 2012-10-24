@@ -1,0 +1,22 @@
+<div class = "question_form">
+  <div class = "question_field">
+  <%= f.label "Nível de serviço" %>
+  <%= f.select :service_level_id, @service_levels %>
+  </div>
+  <div class = "question_field">
+    <div id="indicator_div">
+      <%= f.label "Indicador" %>
+      <%= f.select :indicator_id, @indicators %>
+    </div>
+  </div>
+  <div class = "question_field">
+    <%= f.label "Número" %>
+    <%= f.text_field :number %>
+  </div>
+  <%= f.semantic_fields_for :question_texts do |builder| %>
+      <%= render 'question_text_fields', :f => builder %>  
+  <% end %>
+  <%= link_to_add_fields 'Novo texto', f, :question_texts %>
+  <br>
+  <%= f.submit button %>
+</div>

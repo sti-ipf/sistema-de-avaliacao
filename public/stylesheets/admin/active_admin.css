@@ -1436,3 +1436,9 @@ table.dashboard {
   padding: 0; }
   .columns .column {
     float: left; }
+
+
+.question_form label{
+  width: 100%;
+  float: left;
+}

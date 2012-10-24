@@ -1,0 +1,12 @@
+<div class = "fields">
+  <div class = "question_field">
+    <%= f.label "Texto" %>
+    <%= f.text_area :text  %>
+  </div>
+  <div class = "question_field">
+    <div class='segment_div'>
+      <%= f.label "Segmento" %>
+      <%= f.select :segment_id, @segments %>
+    </div>
+  </div>
+</div>
