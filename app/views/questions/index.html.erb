@@ -19,11 +19,11 @@
                 <tbody>
                   <%- @question_texts.each do |q| %>
                     <tr>
-                      <td><%= "#{q.question.indicator.number}.#{q.question.number}" %></td>
-                      <td><%= q.question.service_level.name %></td>
-                      <td><%= q.segment.name %></td>
+                      <td><%= "#{q.question.indicator.try(:number)}.#{q.question.try(:number)}" %></td>
+                      <td><%= q.question.service_level.try(:name) %></td>
+                      <td><%= q.segment.try(:name) %></td>
                       <td><%= q.text %></td>
-                      <td><%= link_to 'Alterar', edit_question_path(:id => q.question.id) %></td>
+                      <td><%= link_to 'Alterar', edit_question_path(:id => q.question.try(:id)) %></td>
                     </tr>
                   <%- end %>
                 </tbody>
