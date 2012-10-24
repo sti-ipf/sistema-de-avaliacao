@@ -50,12 +50,14 @@ class QuestionsController < ApplicationController
       question_text = QuestionText.find(q['id'])
       question_text.text = q['text']
       question_text.segment_id = q['segment_id']
-      question_text.save
+      if q['_destroy'].to_s == 'false'
+        question_text.save
+      else
+        question_text.destroy
+      end
     end
     flash[:notice] = 'Questão atualizada com sucesso'
     redirect_to questions_path
   end
 
 end
-
- 

@@ -1442,3 +1442,14 @@ table.dashboard {
   width: 100%;
   float: left;
 }
+
+.question_remove_link{
+  margin-left: 900px;
+}
+
+.question_remove_link a{ color:red;}
+
+.question_link_add{
+  display: block;
+  margin-bottom: 10px;
+}
