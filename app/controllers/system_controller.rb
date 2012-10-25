@@ -26,7 +26,7 @@ class SystemController < ApplicationController
       Ipf::Instrument.import(file)
       flash[:notice] = 'Instrumental importado com sucesso'
       respond_to do |format|
-        format.html{redirect_to(admin_questions_path)}
+        format.html{redirect_to(questions_path)}
       end
     end
   end

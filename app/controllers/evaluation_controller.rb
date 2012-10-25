@@ -280,6 +280,9 @@ private
   
   def update_evaluation_stats
     stat = EvaluationAnswerStat.find_by_service_level_id_and_segment_id_and_school_id(@service_level.id, @segment.id, @school.id)
+    if stat.nil?
+      stat = IPF::AnswerStat.generate_per_school(@service_level.id, @segment.id, @school.id)
+    end
     stat.dimension = @dimension
     if !stat.started_to_answer
       stat.started_to_answer = true
