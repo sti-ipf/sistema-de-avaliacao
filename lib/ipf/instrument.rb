@@ -14,6 +14,7 @@ module Ipf
     def self.import(file)
       data = FasterCSV.read(file, CSV_OPTIONS)
       data.each do |d|
+        next if d[QUESTION_TEXT].nil?
         next if d[QUESTION_TEXT].include?('Texto')
         
         service_level = ServiceLevel.first(:conditions => "name = '#{d[SERVICE_LEVEL]}'")

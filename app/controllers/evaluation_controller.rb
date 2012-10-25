@@ -205,7 +205,7 @@ class EvaluationController < ApplicationController
       format.pdf do
         headless = Headless.new
         headless.start
-        render :pdf => "export"
+        render :pdf => "certificado"
         headless.destroy
       end
     end
