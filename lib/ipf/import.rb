@@ -17,9 +17,6 @@ module Ipf
       data.each do |d|
         next if d[0] == 'Nome'
         levels = []
-        puts '-' * 100
-        puts d.inspect
-        puts '-' * 100
         (2..10).each do |i|
           levels << ServiceLevel.find_by_name(d[i]) if !d[i].blank?
         end

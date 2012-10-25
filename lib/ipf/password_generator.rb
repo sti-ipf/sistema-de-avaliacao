@@ -7,6 +7,7 @@ module IPF
       levels.each do |level|
         level.segments.each do |segment|
           level.schools.each do |school|
+
             newpass = genpass 6
             while(saved_passwords.include? newpass)
               newpass = genpass 6

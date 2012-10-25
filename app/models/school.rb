@@ -8,7 +8,7 @@ class School < ActiveRecord::Base
   has_many :presence
   has_many :evaluation_answer_stats
   has_many :answer_logs
-  has_and_belongs_to_many :groups
+  #has_and_belongs_to_many :groups
 
   begin
     ServiceLevel.all.each do |sl|
