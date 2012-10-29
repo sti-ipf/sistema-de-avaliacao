@@ -12,7 +12,7 @@
   <p>Nível de ensino: <%= @service_level.name%></p>
   <p>Escola: <%= @school.name%></p>
   <p>Segmento: <%= @segment.name%></p>
-  <p>Data início da resposta: <%= @evaluation_status.started_at.try(:strftime, "%d/%m/%Y %H:%m") %></p>
-  <p>Data fim da resposta: <%= @evaluation_status.finished_at.try(:strftime, "%d/%m/%Y %H:%m") %></p>
+  <p>Data início da resposta: <%= @evaluation_status.started_at.try(:strftime, "%d/%m/%Y %H:%M") %></p>
+  <p>Data fim da resposta: <%= @evaluation_status.finished_at.try(:strftime, "%d/%m/%Y %H:%M") %></p>
 
 </body>
