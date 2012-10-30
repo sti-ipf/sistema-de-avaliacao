@@ -10,7 +10,9 @@ gem 'flash_render', '1.0.1'
 
 gem 'jquery-rails', '>= 1.0.12'
 
-gem 'activeadmin', '0.3.2'
+gem 'activeadmin', '0.4.2'
+
+gem "formtastic", "2.1.1"
 
 gem 'acts_as_audited', '2.0.0.rc7'
 

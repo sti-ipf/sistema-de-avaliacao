@@ -22,7 +22,7 @@ ActiveAdmin::Dashboards.build do
         "Total de escola pendente inicio: #{total_schools_pending_start} (#{total_schools_pending_start_percentage}%)"
       end
       li do
-        link_to "Mapa das respostas", map_path
+        link_to "Mapa das respostas", :admin_mapa_das_respostas
       end
     end
   end
