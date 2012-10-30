@@ -1,4 +1,5 @@
-# ActiveAdmin.register Question do
+ActiveAdmin.register_page "Questions" do
+      menu :label => "Questões", :parent => "Avaliação"
 #   menu :parent => "Avaliação", :priority => 7
 
 #   # controller do 
@@ -35,5 +36,5 @@
 #   #   end
 #   # end
 
-# end
+end
 
