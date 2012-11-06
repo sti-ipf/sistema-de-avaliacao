@@ -231,7 +231,6 @@ th, td, caption {
 
 #header {
   text-shadow: lightgray 0 1px 0;
-  position: relative;
   z-index: 900; }
   #header h1 {
     display: inline;

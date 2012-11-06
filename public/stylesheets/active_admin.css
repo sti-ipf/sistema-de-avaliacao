@@ -242,9 +242,7 @@ th, td, caption {
   text-shadow: black 0 1px 0;
   height: 20px;
   overflow: visible;
-  position: relative;
   padding: 9px 30px;
-  position: relative;
   z-index: 900; }
   #header h1 {
     display: inline-block;
