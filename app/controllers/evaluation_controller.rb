@@ -296,6 +296,9 @@ private
 
   def generate_answer_log
     log = ""
+    puts '-' * 100
+    puts @answers.inspect
+    puts '-' * 100
     @questions.each do | question |
       log += "#{@dimension.number}.#{question.question.indicator.number}.#{question.question.number}-  0:[#{@answers[question.id].do_not_know}], 1:[#{@answers[question.id].one}], 2:[#{@answers[question.id].two}], 3:[#{@answers[question.id].three}],4:[#{@answers[question.id].four}], 5:[#{@answers[question.id].five}], ø:[#{@answers[question.id].do_not_answer}], Quantidades de pessoas:[#{@answers[question.id].quantity_of_people}]\n"
     end

@@ -122,32 +122,32 @@
           });
 
           var tables = $(".table_question");
-
+          tables.find(".txtQuestao").keypress(soNumeros);
           //desabilita todos os campos
-          tables.find(".txtQuestao").keypress(desabilitaDigitacao);
-          tables.find(".txtQuestao").attr("disabled", true);
+          // tables.find(".txtQuestao").keypress(desabilitaDigitacao);
+          // tables.find(".txtQuestao").attr("disabled", true);
 
           //habilita campos preenchidos (utilizado para o voltar da tela de revisão)
-          for(var i =0; i < tables.length; i++){
-            var $linhas = $(tables[i]).find(".gabarito");
+          // for(var i =0; i < tables.length; i++){
+          //   var $linhas = $(tables[i]).find(".gabarito");
             
-            for(var j =0; j< $linhas.length; j++){
-              var totalLinha = 0;
-              var $_linha = $($linhas);
+          //   for(var j =0; j< $linhas.length; j++){
+          //     var totalLinha = 0;
+          //     var $_linha = $($linhas);
 
-              $_linha.find(".txtQuestao").each(function(i, e){totalLinha = totalLinha + Number($(e).val());})
+          //     $_linha.find(".txtQuestao").each(function(i, e){totalLinha = totalLinha + Number($(e).val());})
 
-              if(totalLinha > 0){
-                $_linha.find(".txtQuestao").unbind("keypress");
-                $_linha.find(".txtQuestao").attr("disabled", false);
-                $_linha.find(".txtQuestao").keypress(soNumeros);
-              }
-            }
-          }
+          //     if(totalLinha > 0){
+          //       $_linha.find(".txtQuestao").unbind("keypress");
+          //       $_linha.find(".txtQuestao").attr("disabled", false);
+          //       $_linha.find(".txtQuestao").keypress(soNumeros);
+          //     }
+          //   }
+          // }
 
           //Habilita primeira linha
-          tables.find(".gabarito:first").find(".txtQuestao").unbind("keypress").keypress(soNumeros);
-          tables.find(".gabarito:first").find(".txtQuestao").attr("disabled", false);
+          // tables.find(".gabarito:first").find(".txtQuestao").unbind("keypress").keypress(soNumeros);
+          // tables.find(".gabarito:first").find(".txtQuestao").attr("disabled", false);
 
          
           $(".totalParcial, .totalPessoas").keypress(desabilitaDigitacao);
