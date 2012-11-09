@@ -27,13 +27,13 @@
         <% 5.times do |i| %>
           <tr class="gabarito">
             <td class='gabarito_name'> <%= "Gabarito #{i+1}" %></td>
-            <td class="do_not_know"> <%= text_field_tag "[#{question.id}]do_not_know_#{i}", nil, :class => "txtQuestao do_not_know_#{question.id}" %> </td>
-            <td class="one"> <%= text_field_tag "one_#{i}", nil, :class => 'txtQuestao one' %> </td>
-            <td class="two"> <%= text_field_tag "two_#{i}", nil, :class => 'txtQuestao two' %> </td>
-            <td class="three"> <%= text_field_tag "three_#{i}", nil, :class => 'txtQuestao three' %> </td>
-            <td class="four"> <%= text_field_tag "four_#{i}", nil, :class => 'txtQuestao four' %> </td>
-            <td class="five"> <%= text_field_tag "five_#{i}", nil, :class => 'txtQuestao five' %> </td>
-            <td class="do_not_answer"> <%= text_field_tag "do_not_answer_#{i}", nil, :class => 'txtQuestao do_not_answer' %> </td>
+            <td class="do_not_know"> <%= text_field_tag "[#{question.id}]do_not_know_#{i}", nil, :class => "txtQuestao do_not_know_#{question.id}", :disabled => true %> </td>
+            <td class="one"> <%= text_field_tag "one_#{i}_#{question.id}", nil, :class => 'txtQuestao one', :disabled => true %> </td>
+            <td class="two"> <%= text_field_tag "two_#{i}_#{question.id}", nil, :class => 'txtQuestao two', :disabled => true %> </td>
+            <td class="three"> <%= text_field_tag "three_#{i}_#{question.id}", nil, :class => 'txtQuestao three', :disabled => true %> </td>
+            <td class="four"> <%= text_field_tag "four_#{i}_#{question.id}", nil, :class => 'txtQuestao four', :disabled => true %> </td>
+            <td class="five"> <%= text_field_tag "five_#{i}_#{question.id}", nil, :class => 'txtQuestao five', :disabled => true %> </td>
+            <td class="do_not_answer"> <%= text_field_tag "do_not_answer_#{i}_#{question.id}", nil, :class => 'txtQuestao do_not_answer', :disabled => true %> </td>
             <% if i == 4 %>
               <td>Quantidade de pessoas </td>
             <% else %>
@@ -113,47 +113,38 @@
             //habilita a proxima linha se tiver algum valor informado na linha atual
             if(totalLinha > 0){
               var linha = $(this).parents(".gabarito:first").next();
-              
-              linha.find(".txtQuestao").unbind("keypress");
-              linha.find(".txtQuestao").attr("disabled", false);
-              linha.find(".txtQuestao").keypress(soNumeros);
+              var $questions = $(linha.find(".txtQuestao"));
+              habilitaCampos($questions);
             }
 
           });
-
+          
           var tables = $(".table_question");
-          tables.find(".txtQuestao").keypress(soNumeros);
-          //desabilita todos os campos
-          // tables.find(".txtQuestao").keypress(desabilitaDigitacao);
-          // tables.find(".txtQuestao").attr("disabled", true);
-
           //habilita campos preenchidos (utilizado para o voltar da tela de revisão)
-          // for(var i =0; i < tables.length; i++){
-          //   var $linhas = $(tables[i]).find(".gabarito");
-            
-          //   for(var j =0; j< $linhas.length; j++){
-          //     var totalLinha = 0;
-          //     var $_linha = $($linhas);
+          for(var i =0; i < tables.length; i++)
+            processTable(tables[i]);
 
-          //     $_linha.find(".txtQuestao").each(function(i, e){totalLinha = totalLinha + Number($(e).val());})
-
-          //     if(totalLinha > 0){
-          //       $_linha.find(".txtQuestao").unbind("keypress");
-          //       $_linha.find(".txtQuestao").attr("disabled", false);
-          //       $_linha.find(".txtQuestao").keypress(soNumeros);
-          //     }
-          //   }
-          // }
-
-          //Habilita primeira linha
-          // tables.find(".gabarito:first").find(".txtQuestao").unbind("keypress").keypress(soNumeros);
-          // tables.find(".gabarito:first").find(".txtQuestao").attr("disabled", false);
-
-         
           $(".totalParcial, .totalPessoas").keypress(desabilitaDigitacao);
-
           desabilitaCampos(true);
-      });
+        });
+
+      function processTable(table){
+        var $linhas = $(table).find(".gabarito");
+        for(var j =0; j< $linhas.length; j++){
+          var $_linha = $($linhas[j]);
+          var $campos = $($_linha.find(".txtQuestao"))
+          if(j == 0)
+          {
+            habilitaCampos($campos); 
+          }else
+          {
+            var totalLinha = 0;
+            $campos.each(function(i, e){totalLinha = totalLinha + Number($(e).val());})
+            if(totalLinha > 0)
+              habilitaCampos($campos);
+          }
+        }
+      }
 
       function CalculaTotal(table){
         var $itens = table.find(".totalParcial");        
@@ -162,6 +153,14 @@
           valorParcial = Number($(this).val()) + valorParcial; 
         });        
         table.find(".totalPessoas").val(valorParcial);
+      }
+
+      function habilitaCampos(campos){
+        campos.each(function(){
+          $(this).unbind("keypress");
+          $(this).attr("disabled", false);
+          $(this).keypress(soNumeros);
+        });
       }
 
       // Permite somente digitar numeros inteiros
@@ -202,7 +201,6 @@
         $("#hdfGabarito").val(montaJSon($('.table_question')));
         desabilitaCampos(false);
         $(".table_question").find(".txtQuestao").attr("disabled", false);
-
       });
 
     </script>
