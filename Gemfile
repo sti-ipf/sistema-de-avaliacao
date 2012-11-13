@@ -49,3 +49,5 @@ gem 'to_worksheet'
 gem 'rufus-scheduler'
 
 gem 'uuidtools'
+
+gem 'brstring'

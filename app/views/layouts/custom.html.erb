@@ -2,8 +2,14 @@
 <html> 
   <head> 
     <title>Compreender - Sistema de avaliação 2012</title>
-      <%= stylesheet_link_tag "admin/active_admin.css", 'jquery-ui-1.8.16.custom.css' %>
-      <%= javascript_include_tag "jquery.js", "application.js" %>
+      <%= stylesheet_link_tag "admin/active_admin.css", 'jquery-ui-1.8.16.custom.css', 'noty_theme_default.css' %>
+    <%= javascript_include_tag "jquery.js" %>
+    <%= javascript_include_tag "jquery_ujs.js" %>
+    <%= javascript_include_tag "autocomplete-rails.js" %>
+    <%= javascript_include_tag "jquery-ui.min.js" %>
+    <%= javascript_include_tag "livevalidation_standalone.compressed.js" %>
+    <%= javascript_include_tag "application.js" %>
+    <%= javascript_include_tag  "jquery.jgrowl_minimized.js" %>
   </head> 
   <body class = "admin_dashboard logged_in index">
     <div id="wrapper">

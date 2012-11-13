@@ -6,7 +6,7 @@ module ApplicationHelper
       @messages = "#{@messages}<br>#{message}"
       @type = type
     end
-    javascript = "<script type=\"text/javascript\"> jQuery(function(message) {jQuery.jGrowl(\"#{@messages}\", {easing: \"linear\", life: 4000,theme: \"#{@type}\"});});</script>"
+    javascript = "<script type=\"text/javascript\"> jQuery(function(message) {jQuery.jGrowl(\"#{@messages}\", {easing: \"linear\", life: 49000,theme: \"#{@type}\"});});</script>"
     if defined?(@type)
       javascript 
     else
@@ -53,6 +53,8 @@ module ApplicationHelper
       "Importar Indicadores"
     elsif request.path.include?("questions")
       "Questões ".html_safe
+    elsif request.path.include?("manage")
+      "Apagar respostas ".html_safe
     else
       "Importar Instrumental"
     end

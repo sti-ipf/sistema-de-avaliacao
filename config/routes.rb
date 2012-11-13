@@ -42,6 +42,11 @@ IpfOsascoAvaliacao2011::Application.routes.draw do
   match "sistema/segmentos/importar", :to => 'system#import_segments', :as => 'import_segments'
   match "sistema/indicadores/importar", :to => 'system#import_indicators', :as => 'import_indicators'
 
+  match '/admin/manage' => 'manage#index', :as => :admin_manage
+  match '/admin/apagar_dados_de_respostas' => 'manage#destroy', :as => :destroy_evaluation_data
+
+  
+
   resources :evaluation do
     get :autocomplete_school_name, :on => :collection
   end

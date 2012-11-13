@@ -1,0 +1,49 @@
+<%= form_tag destroy_evaluation_data_path, :id => 'destroy_data' do %>
+  <div>
+  <%= label_tag "Escola" %>
+  
+
+  <%= autocomplete_field_tag :school_name, '', autocomplete_school_name_evaluation_index_path, :id_element => '#school' %>
+              <%= hidden_field_tag :school_id, '' %>
+  </div>
+  <div>
+  <%= label_tag "Nível de serviço" %>
+  <%= select :search,  :service_level, options_for_select(@service_levels), {:prompt => 'Selecione'} %>
+  </div>
+  <div>
+  <%= label_tag "Segmento" %>
+  <%= select :search,  :segment, options_for_select(@segments), {:prompt => 'Selecione'} %>
+  </div>
+  <div>
+  <%= label_tag "Dimensão" %>
+  <%= select :search,  :dimension, options_for_select(@dimensions), {:prompt => 'Selecione'} %>
+  </div>
+  <div>
+  <%= submit_tag 'Apagar', :id => 'destroy_data_btn' %>
+  </div>
+  <div class='alert_messages'>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8"> 
+  $(document).ready(function() {
+
+    $('#destroy_data_btn').click(function()
+      { 
+        var result = true;
+        if( !$("#school_name").val()) {
+          result = false;
+        }
+        if( !$("#search_service_level").val()) {
+          result = false;
+        }
+        if( !$("#search_segment").val()) {
+          result = false;
+        }
+        if (result == false){
+          $(".alert_messages").html("Por favor selecione a escola, nível de serviço e o segmento")
+        }
+        return result;
+      });
+  });
+</script>
