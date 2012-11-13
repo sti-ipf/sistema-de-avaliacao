@@ -1,17 +1,15 @@
 <%= form_tag destroy_evaluation_data_path, :id => 'destroy_data' do %>
   <div>
-  <%= label_tag "Escola" %>
-  
-
+  <%= label_tag "Escola*" %>
   <%= autocomplete_field_tag :school_name, '', autocomplete_school_name_evaluation_index_path, :id_element => '#school' %>
-              <%= hidden_field_tag :school_id, '' %>
+  <%= hidden_field_tag :school_id, '' %>
   </div>
   <div>
-  <%= label_tag "Nível de serviço" %>
+  <%= label_tag "Nível de serviço*" %>
   <%= select :search,  :service_level, options_for_select(@service_levels), {:prompt => 'Selecione'} %>
   </div>
   <div>
-  <%= label_tag "Segmento" %>
+  <%= label_tag "Segmento*" %>
   <%= select :search,  :segment, options_for_select(@segments), {:prompt => 'Selecione'} %>
   </div>
   <div>
