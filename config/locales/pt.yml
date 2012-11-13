@@ -92,6 +92,7 @@ pt:
       question: "Questão"
       survey: "Pesquisa"
     attributes:
+
       admin_user:
         email: "Email"
         sign_in_count: "Contagem de logins"
@@ -108,11 +109,14 @@ pt:
         created_at: "Criado em"
         updated_at: "Atualizado em"
       indicator:
+        dimension: "Dimensão"
+        dimension_id: "Dimensão"
         name: "Nome"
         number: "Número"
         dimension: "Dimensão"
         created_at: "Criado em"
         updated_at: "Atualizado em"
+        description: "Descrição"
       password:
         password: "Senha"
         school: "Escola"

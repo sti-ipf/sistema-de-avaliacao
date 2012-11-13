@@ -17,6 +17,8 @@ ActiveAdmin.register Indicator do
   rescue
   end
 
+  form :partial => "form"
+
   action_item do
     link_to "Importar", import_indicators_path
   end
