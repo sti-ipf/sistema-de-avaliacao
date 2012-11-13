@@ -9,7 +9,7 @@ class ManageController < ApplicationController
     end
 
     def destroy
-      exec "mysqldump -uroot -p1234Freire avaliacao_2012 > ~/dump_avalia_2012_#{DateTime.now.to_i}"
+      # exec "sudo mysqldump -uroot -p1234Freire avaliacao_2012 > ~/dump_avalia_2012_#{DateTime.now.to_i}"
       school = params[:school_name]
       service_level = params[:search][:service_level]
       dimension = params[:search][:dimension]
