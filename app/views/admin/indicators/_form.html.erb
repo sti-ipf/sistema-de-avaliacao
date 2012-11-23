@@ -4,7 +4,6 @@
     <ol>
     <%= f.input :dimension_id, :as => :select, :collection => Dimension.all(:include => [:service_level]).collect{|d| ["#{d.service_level.name} - #{d.name}", d.id]} %>
     <%= f.input :name %>
-    <%= f.input :description %>
     <%= f.input :number, :as => :string %>
     
     </ol>
