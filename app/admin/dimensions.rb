@@ -1,5 +1,6 @@
 ActiveAdmin.register Dimension do
   menu :parent => "Avaliação", :priority => 4
+  config.comments = false
   filter :number
   filter :name
 

@@ -1,5 +1,6 @@
 ActiveAdmin.register Segment do
   menu :parent => "Avaliação", :priority => 3
+  config.comments = false
   filter :name
 
   begin

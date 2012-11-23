@@ -1,5 +1,6 @@
 ActiveAdmin.register Indicator do
   menu :parent => "Avaliação", :priority => 5
+  config.comments = false
   filter :dimension
   filter :number
   filter :name

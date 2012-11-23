@@ -1,7 +1,8 @@
 ActiveAdmin.register School do
   menu :parent => "Avaliação", :priority => 2
+  config.comments = false
   filter :name
-
+  
   begin
     first = false
     ServiceLevel.all.each do |sl|
@@ -43,7 +44,6 @@ ActiveAdmin.register School do
         (s.service_levels.map{ |p| p.name }).join(', ')
       end
     end
-    active_admin_comments
   end
 
 end

@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   menu :parent => "Administração", :priority => 1
-
+  config.comments = false
   filter :email
 
   form do |f|

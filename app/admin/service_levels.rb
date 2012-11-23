@@ -1,7 +1,7 @@
 ActiveAdmin.register ServiceLevel do
   menu :parent => "Avaliação", :priority => 1
   filter :name
-
+  config.comments = false
   index do
     column :name
     default_actions
