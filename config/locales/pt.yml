@@ -89,6 +89,7 @@ pt:
       password: "Senha"
       answer_log: "Log de resposta"
       evaluation_answer_stat: "Estatística"
+      evaluation_user_session: "Sessão de avaliação"
       question: "Questão"
       survey: "Pesquisa"
     attributes:

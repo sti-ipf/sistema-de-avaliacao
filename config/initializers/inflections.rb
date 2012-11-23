@@ -11,4 +11,10 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.uncountable %w( manage )
+
+  inflect.irregular 'dimensão', 'dimensões'
+  inflect.irregular 'indicador', 'indicadores'
+  inflect.irregular 'nível de serviço', 'níveis de serviço'
+  inflect.irregular 'log de resposta', 'logs de respostas'
+  inflect.irregular 'sessão de avaliação', 'sessões de avaliação'
 end

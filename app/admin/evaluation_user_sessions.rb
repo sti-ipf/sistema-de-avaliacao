@@ -1,5 +1,5 @@
 ActiveAdmin.register EvaluationUserSession do
-  menu :parent => "Administração", :priority => 2, :label => 'Sessão de Avaliação'
+  menu :parent => "Administração", :priority => 2
   actions :destroy, :index
 
   index do
