@@ -31,5 +31,9 @@ ActiveAdmin.register Indicator do
     default_actions
   end
 
+  show do
+    attributes_table :id, :number, :name, :dimension, :created_at, :updated_at
+  end
+
 end
 
