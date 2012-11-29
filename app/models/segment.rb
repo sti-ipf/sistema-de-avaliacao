@@ -9,6 +9,8 @@ class Segment < ActiveRecord::Base
   has_many :evaluation_answer_stats
   has_many :answer_logs
 
+  validates_presence_of :name, :service_level_id
+
   begin
     ServiceLevel.all.each do |sl|
       scope sl.name, where("service_level_id = ?", sl.id)

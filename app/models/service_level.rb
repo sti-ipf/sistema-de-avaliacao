@@ -8,6 +8,7 @@ class ServiceLevel < ActiveRecord::Base
   has_many :passwords
   has_many :evaluation_answer_stats
   has_many :answer_logs
-
+  
+  validates_presence_of :name
 end
 

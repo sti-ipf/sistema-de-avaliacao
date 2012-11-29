@@ -9,7 +9,7 @@ class School < ActiveRecord::Base
   has_many :evaluation_answer_stats
   has_many :answer_logs
   #has_and_belongs_to_many :groups
-
+  validates_presence_of :name
   begin
     ServiceLevel.all.each do |sl|
       scope sl.name, School.joins(:service_levels).where("service_levels.id = ?", sl.id)

@@ -6,6 +6,8 @@ class Dimension < ActiveRecord::Base
   has_many :evaluation_answer_stats
   has_many :answer_log
 
+  validates_presence_of :service_level_id, :name, :number
+
   begin
     ServiceLevel.all.each do |sl|
       scope sl.name, where(:service_level_id => sl.id)
